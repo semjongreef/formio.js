@@ -1,9 +1,10 @@
 /* eslint-disable max-statements */
 import _ from 'lodash';
+import { validate as uuidValidate } from "uuid";
 import Component from '../_classes/component/Component';
 import ComponentModal from '../_classes/componentModal/ComponentModal';
 import EventEmitter from 'eventemitter3';
-import {isMongoId, eachComponent, componentValueTypes} from '../../utils/utils';
+import { eachComponent, componentValueTypes} from '../../utils/utils';
 import { Formio } from '../../Formio';
 import Form from '../../Form';
 
@@ -57,8 +58,8 @@ export default class FormComponent extends Component {
     ) {
       if (this.component.project) {
         this.formSrc = Formio.getBaseUrl();
-        // Check to see if it is a MongoID.
-        if (isMongoId(this.component.project)) {
+        // Check to see if it is a uuid.
+        if (uuidValidate(this.component.project)) {
           this.formSrc += '/project';
         }
         this.formSrc += `/${this.component.project}`;
@@ -69,7 +70,7 @@ export default class FormComponent extends Component {
         this.options.project = this.formSrc;
       }
       if (this.component.form) {
-        if (isMongoId(this.component.form)) {
+        if (uuidValidate(this.component.form)) {
           this.formSrc += `/form/${this.component.form}`;
         }
         else {
@@ -84,7 +85,7 @@ export default class FormComponent extends Component {
     // Build the source based on the root src path.
     if (!this.formSrc && this.options.formio) {
       const rootSrc = this.options.formio.formsUrl;
-      if (this.component.form && isMongoId(this.component.form)) {
+      if (this.component.form && uuidValidate(this.component.form)) {
         this.formSrc = `${rootSrc}/${this.component.form}`;
       }
       else {
