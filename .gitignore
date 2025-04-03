@@ -1,6 +1,4 @@
 _site
-dist
-lib
 docs
 dump.rdb
 .dccache
@@ -15,3 +13,4 @@ bower_components
 /.vs
 coverage
 .nyc_output
+.vscode
